@@ -3,6 +3,7 @@ package routes
 import (
 	"fmt"
 	"github.com/domesama/Golang-Echo-REST/handlers"
+	"github.com/domesama/Golang-Echo-REST/middlewares"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -10,7 +11,7 @@ import (
 //Serves listed routes
 func GetDefaultRoutes(e *echo.Echo)  {
 	e.POST("/waifus", handlers.GetAnimeWaifus)
-	e.GET("/products/:id", handlers.GetProducts)
+	e.GET("/products/:id", handlers.GetProducts, middlewares.ProductMiddleware)
 
 	//Default Example
 	e.GET("/", func(context echo.Context) error {

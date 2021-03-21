@@ -6,13 +6,13 @@ type Product []map[int]string
 
 type ProductContext struct {
 	echo.Context
-	Prod Product
+	Products Product
 }
 
-func NewProduct(products []string) *Product{
+func NewProduct(products []string) Product{
 	prod := Product{}
 	for index,val := range products{
 		prod = append(prod, map[int]string{index:val})
 	}
-	return &prod
+	return prod
 }

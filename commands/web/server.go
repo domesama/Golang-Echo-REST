@@ -3,7 +3,6 @@ package web
 import (
 	"fmt"
 	"github.com/domesama/Golang-Echo-REST/configs"
-	"github.com/domesama/Golang-Echo-REST/middlewares"
 	"github.com/domesama/Golang-Echo-REST/routes"
 	"github.com/domesama/Golang-Echo-REST/validators"
 	"github.com/go-playground/validator/v10"
@@ -30,11 +29,16 @@ func Start()  {
 
 	//Add Custom Validator
 	e.Validator = &validators.CustomValidator{ Validator: validator.New()}
-	e.Use(middlewares.ProductMiddleware)
+
+	//Add a middle ware, note middlewars could be added later on for EACH individual function
+	//e.Use(middlewares.ProductMiddleware)
+
 	//Routes
 	routes.GetDefaultRoutes(e)
 
 	//e.Logger.Print(fmt.Sprintf("Started server on http://localhost:%s", appConf.Port))
+
+	//Starts the server
 	e.Logger.Fatal(e.Start(fmt.Sprintf("%s:%s", appConf.Host,appConf.Port)))
 }
 

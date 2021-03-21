@@ -8,7 +8,7 @@ import (
 func ProductMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error{
 		p := structs.NewProduct([]string{"OwO", "UwU", "Anime", "Waifus"})
-		productCtx := &structs.ProductContext{Context: c, Prod: *p }
+		productCtx := &structs.ProductContext{Context: c, Products: p }
 		return next(productCtx)
 	}
 }

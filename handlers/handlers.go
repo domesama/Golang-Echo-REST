@@ -11,7 +11,7 @@ import (
 
 func GetProducts(ctx echo.Context)  error{
 
-	p := structs.NewProduct([]string{"OwO", "UwU", "Anime", "Waifus"})
+	prodCtx := ctx.(*structs.ProductContext)
 
 	param := ctx.Param("id")
 	if param == ""{
@@ -23,7 +23,7 @@ func GetProducts(ctx echo.Context)  error{
 		ctx.Logger().Print("There was an error parsing the given params")
 	}
 
-	for _,val := range *p {
+	for _,val := range prodCtx.Prod{
 		for index,_ := range val{
 			if id == index+1{
 				ctx.JSON(http.StatusOK, val)

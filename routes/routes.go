@@ -16,4 +16,5 @@ func GetDefaultRoutes(e *echo.Echo)  {
 	e.GET("/", func(context echo.Context) error {
 		return context.String(http.StatusOK, fmt.Sprintf("%v", context.Request().Close))
 	})
+
 }

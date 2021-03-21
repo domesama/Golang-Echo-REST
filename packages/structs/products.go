@@ -1,6 +1,13 @@
 package structs
 
+import "github.com/labstack/echo/v4"
+
 type Product []map[int]string
+
+type ProductContext struct {
+	echo.Context
+	Prod Product
+}
 
 func NewProduct(products []string) *Product{
 	prod := Product{}
@@ -9,4 +16,3 @@ func NewProduct(products []string) *Product{
 	}
 	return &prod
 }
-

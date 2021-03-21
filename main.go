@@ -5,8 +5,13 @@ import (
 )
 
 func main()  {
-
 	web.Start()
+}
+
+
+
+
+
 
 //-------------------------------Example---------------------------------
 
@@ -24,7 +29,7 @@ func main()  {
 
 //----------------------------------------------------------------------
 
-}
+
 
 //func defaultRouteHandler(w http.ResponseWriter, r *http.Request){
 //	fmt.Fprintf(w,fmt.Sprintf("The current request is + \n %v", r))

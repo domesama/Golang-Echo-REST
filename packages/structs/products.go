@@ -6,7 +6,7 @@ type Product []map[int]string
 
 type ProductContext struct {
 	echo.Context
-	Products Product
+	Product
 }
 
 func NewProduct(products []string) Product{

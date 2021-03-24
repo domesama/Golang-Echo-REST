@@ -23,7 +23,7 @@ func GetProducts(ctx echo.Context)  error{
 		ctx.Logger().Print("There was an error parsing the given params")
 	}
 
-	for _,val := range prodCtx.Products{
+	for _,val := range prodCtx.Product{
 		for index,_ := range val{
 			if id == index+1{
 				ctx.JSON(http.StatusOK, val)

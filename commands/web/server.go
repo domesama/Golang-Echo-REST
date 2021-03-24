@@ -14,6 +14,8 @@ var e = echo.New()
 var appConf = &configs.ConfigApp{}
 
 func init()  {
+
+	//Reads the given env according to that pre-defined config
 	err := cleanenv.ReadEnv(appConf)
 	if err != nil{
 		e.Logger.Fatal(err)

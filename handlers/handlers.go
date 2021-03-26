@@ -34,13 +34,24 @@ func GetStuff(ctx echo.Context)  error{
 	return echo.NewHTTPError(http.StatusNotFound, "There was no Products within the given id")
 }
 
+func GetAnimeWaifus(ctx echo.Context) (err error){
+	db := ctx.(*structs.DBContext)
+	svc := services.NewAnimeWaifuService(db.DB)
+
+	waifu,err := svc.GetWaifus()
+	if err != nil || &waifu == nil{
+		return err
+	}
+	return ctx.JSON(http.StatusOK, waifu)
+}
+
 func PostAnimeWaifus(ctx echo.Context) (err error) {
+
+	defer ctx.Request().Body.Close()
 
 	db := ctx.(*structs.DBContext)
 
 	svc := services.NewAnimeWaifuService(db.DB)
-
-	defer ctx.Request().Body.Close()
 
 	waifu := structs.AnimeWaifu{}
 

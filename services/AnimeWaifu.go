@@ -43,3 +43,34 @@ func (w *AnimeWaifuService) SendWaifus(waifus structs.AnimeWaifu) error  {
 	fmt.Print("SQL results: ",fmt.Sprintf("%v"),res)
 	return nil
 }
+
+func (w *AnimeWaifuService) GetWaifus() (waifus []structs.AnimeWaifu,err error){
+
+	var id int
+	var name string
+	var email string
+	var title string
+	var hairColor string
+	var age int
+
+	rows, err := w.db.Query(`SElECT * FROM waifus`)
+	if err != nil{
+		return waifus,err
+	}
+	defer rows.Close()
+
+	for rows.Next(){
+		if err = rows.Scan(&id, &name, &name, &email, &hairColor, &age); err != nil{
+			return waifus,err
+		}
+		waifus = append(waifus,
+			structs.AnimeWaifu{
+			Id: id, Name: name, Email: email, Title: title, HairColor: hairColor, Age: age})
+	}
+
+	if err = rows.Err(); err != nil {
+		return waifus,err
+	}
+
+	return waifus,nil
+}

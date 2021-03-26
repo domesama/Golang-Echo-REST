@@ -18,5 +18,6 @@ func GetDefaultRoutes(e *echo.Echo)  {
 
 	//echo.HandlerFunc example
 	e.GET("/products/:id", handlers.GetStuff, middlewares.CreateStuffMiddleware)
+	e.GET("/waifus", handlers.GetAnimeWaifus)
 	e.POST("/waifus", handlers.PostAnimeWaifus)
 }

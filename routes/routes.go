@@ -8,15 +8,15 @@ import (
 	"net/http"
 )
 
-//Serves listed routes
+//GetDefaultRoutes Serves listed routes
 func GetDefaultRoutes(e *echo.Echo)  {
 
 	//Default Example
 	e.GET("/", func(context echo.Context) error {
-		return context.String(http.StatusOK, fmt.Sprintf("%v", context.Request().Close))
+		return context.String(http.StatusOK, fmt.Sprintf("%v", context.Request()))
 	})
 
 	//echo.HandlerFunc example
-	e.POST("/waifus", handlers.GetAnimeWaifus)
-	e.GET("/products/:id", handlers.GetProducts, middlewares.ProductMiddleware)
+	e.GET("/products/:id", handlers.GetStuff, middlewares.CreateStuffMiddleware)
+	e.POST("/waifus", handlers.PostAnimeWaifus)
 }

@@ -1,18 +1,20 @@
 package structs
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/labstack/echo/v4"
+)
 
-type Product []map[int]string
+type Stuff []map[int]string
 
-type ProductContext struct {
+type StuffContext struct {
 	echo.Context
-	Product
+	Stuff
 }
 
-func NewProduct(products []string) Product{
-	prod := Product{}
-	for index,val := range products{
-		prod = append(prod, map[int]string{index:val})
+func NewStuff(s []string) Stuff {
+	stuff := Stuff{}
+	for index,val := range s{
+		stuff = append(stuff, map[int]string{index:val})
 	}
-	return prod
+	return stuff
 }

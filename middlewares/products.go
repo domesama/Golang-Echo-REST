@@ -5,10 +5,10 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func ProductMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+func CreateStuffMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error{
-		p := structs.NewProduct([]string{"OwO", "UwU", "Anime", "Waifus"})
-		productCtx := &structs.ProductContext{Context: c, Product: p }
+		p := structs.NewStuff([]string{"OwO", "UwU", "Anime", "Waifus"})
+		productCtx := &structs.StuffContext{Context: c, Stuff: p }
 		return next(productCtx)
 	}
 }

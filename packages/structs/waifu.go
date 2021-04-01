@@ -9,6 +9,4 @@ type AnimeWaifu struct {
 	Age int `json:"age" validate:"required"`
 }
 
-func NewAnimeWaifu() *AnimeWaifu {
-	return &AnimeWaifu{}
-}
+

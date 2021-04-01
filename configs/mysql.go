@@ -3,8 +3,8 @@ package configs
 import (
 	"database/sql"
 	"fmt"
-	"github.com/ilyakaznacheev/cleanenv"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/ilyakaznacheev/cleanenv"
 )
 
 type MySqlConf struct {

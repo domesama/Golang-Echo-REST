@@ -9,6 +9,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 //Init Echo Framework & add AppConfig pointers
@@ -24,7 +25,7 @@ func init()  {
 	fmt.Println( "The current app configs are as follows:\n" ,fmt.Sprintf("%v", appConf))
 }
 
-//Start starts the application
+//Start nice
 func Start()  {
 
 	//Deprecated -> Go use some env lib for prod uses
@@ -34,6 +35,8 @@ func Start()  {
 	e.Validator = &validators.CustomValidator{ Validator: validator.New()}
 
 	//Add global middleware, note middlewares could be added later on for EACH individual function
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 	e.Use(middlewares.UseDatabaseMiddleWare)
 
 	//Routes

@@ -1,18 +1,19 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/domesama/Golang-Echo-REST/packages/structs"
 	"github.com/domesama/Golang-Echo-REST/services"
 	"github.com/labstack/echo/v4"
+	"log"
 	"net/http"
 	"strconv"
 )
 
 func GetStuff(ctx echo.Context)  error{
-
 	prodCtx := ctx.(*structs.StuffContext)
-
 	param := ctx.Param("id")
+
 	if param == ""{
 		ctx.Logger().Print("The required parameter was not given")
 	}
@@ -21,7 +22,6 @@ func GetStuff(ctx echo.Context)  error{
 	if err != nil{
 		ctx.Logger().Print("There was an error parsing the given params")
 	}
-
 
 	for _,val := range prodCtx.Stuff{
 		for index,_ := range val{
@@ -36,21 +36,20 @@ func GetStuff(ctx echo.Context)  error{
 
 func GetAnimeWaifus(ctx echo.Context) (err error){
 	db := ctx.(*structs.DBContext)
+	defer db.DB.Close()
 	svc := services.NewAnimeWaifuService(db.DB)
 
 	waifu,err := svc.GetWaifus()
 	if err != nil || &waifu == nil{
+		log.Fatal(err)
 		return err
 	}
 	return ctx.JSON(http.StatusOK, waifu)
 }
 
-func PostAnimeWaifus(ctx echo.Context) (err error) {
-
-	defer ctx.Request().Body.Close()
-
+func PostAnimeWaifu(ctx echo.Context) (err error) {
 	db := ctx.(*structs.DBContext)
-
+	defer db.DB.Close()
 	svc := services.NewAnimeWaifuService(db.DB)
 
 	waifu := structs.AnimeWaifu{}
@@ -68,4 +67,17 @@ func PostAnimeWaifus(ctx echo.Context) (err error) {
 	}
 
 	return ctx.JSON(http.StatusOK,waifu)
+}
+
+func DeleteAnimeWaifu(ctx echo.Context) (err error){
+	db := ctx.(*structs.DBContext)
+	defer db.DB.Close()
+	svc := services.NewAnimeWaifuService(db.DB)
+	id,_ := strconv.Atoi(ctx.Param("id"))
+
+	err = svc.DeleteWaifu(id)
+	if err != nil{
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+	return ctx.JSON(http.StatusOK, fmt.Sprintf(`Your waifu with id "%d" was deleted ): very sad`, id ))
 }

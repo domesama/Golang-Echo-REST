@@ -10,7 +10,6 @@ import (
 
 //GetDefaultRoutes Serves listed routes
 func GetDefaultRoutes(e *echo.Echo)  {
-
 	//Default Example
 	e.GET("/", func(context echo.Context) error {
 		return context.String(http.StatusOK, fmt.Sprintf("%v", context.Request()))
@@ -19,5 +18,6 @@ func GetDefaultRoutes(e *echo.Echo)  {
 	//echo.HandlerFunc example
 	e.GET("/products/:id", handlers.GetStuff, middlewares.CreateStuffMiddleware)
 	e.GET("/waifus", handlers.GetAnimeWaifus)
-	e.POST("/waifus", handlers.PostAnimeWaifus)
+	e.POST("/waifus", handlers.PostAnimeWaifu)
+	e.DELETE("/waifus/:id", handlers.DeleteAnimeWaifu)
 }
